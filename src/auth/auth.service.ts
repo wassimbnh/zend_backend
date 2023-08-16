@@ -61,7 +61,7 @@ export class AuthService {
                 id: userId,
             },
             data: {
-                hash,
+                hashedRt: hash,
             },
         });
     }
