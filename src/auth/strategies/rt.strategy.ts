@@ -8,7 +8,7 @@ export class RtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
         constructor() {
             super({
                 jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-                secretOrkey: 'rt-secret',
+                secretOrKey: 'rt-secret',
                 passReqToCallback: true, 
         });
         }
