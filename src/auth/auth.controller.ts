@@ -13,8 +13,8 @@ export class AuthController {
     }
 
     @Post('/signin')
-    signin() {
-        this.authService.signin();
+    signin(@Body() dto: AuthDto) : Promise<Token>{
+       return this.authService.signin(dto);
     }
 
     @Post('/signout')
