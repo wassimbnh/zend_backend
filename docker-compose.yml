@@ -1,5 +1,21 @@
 version: '3'
 services:
+ #############################################
+  ##            ZEND API                 ##
+  #############################################
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: postgresql://postgres:123@db:5432/nestjs
+      PORT : 3000
+    
+#############################################
+  ##            ZEND POSTGRES             ##
+  #############################################
   db:
     image: postgres:13
     ports:
@@ -8,11 +24,5 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: nestjs
-  test-db:
-    image: postgres:13
-    ports:
-      - 5434:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: nestjs
+      
+ 
