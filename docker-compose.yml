@@ -1,20 +1,22 @@
 version: '3'
 services:
- #############################################
-  ##            ZEND API                 ##
+  #############################################
+  ##            ZEND_API                 ##
   #############################################
   app:
     build:
       context: ./
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: postgresql://postgres:123@db:5432/nestjs
       PORT : 3000
+      DATABASE_URL: "postgresql://postgres:123@db:5432/nestjs?schema=public" 
+    depends_on:
+    - db
     
-#############################################
-  ##            ZEND POSTGRES             ##
+  #############################################
+  ##            ZEND_POSTGRES             ##
   #############################################
   db:
     image: postgres:13
