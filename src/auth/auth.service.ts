@@ -88,8 +88,18 @@ export class AuthService {
         await this.updateRtHash(user.id, tokens.refreshToken);
         return tokens;
     }
-    signout() {
-
+    async signout(userId: number) {
+        await this.prisma.user.updateMany({
+            where: {
+                id: userId,
+                hashedRt: {
+                    not: null,
+                }
+            },
+            data:{
+                hashedRt: null,
+            }
+        })
     }
     refreshTokens() {
 
