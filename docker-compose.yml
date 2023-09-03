@@ -12,8 +12,7 @@ services:
     environment:
       PORT : 3000
       DATABASE_URL: "postgresql://postgres:123@db:5432/nestjs?schema=public" 
-    depends_on:
-    - db
+   
     
   #############################################
   ##            ZEND_POSTGRES             ##
@@ -26,13 +25,4 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: nestjs
-   #############################################
-  ##            PRISMA_STUDIO             ##
-  #############################################
-  prisma-studio:
-    build:
-      context: ./prisma-studio
-    ports:
-      - 5555:5555
-    environment:
-      DATABASE_URL: "postgresql://postgres:123@db:5432/nestjs?schema=public"
+  

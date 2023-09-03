@@ -26,13 +26,14 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     signout(@Req() req: Request) {
         const user = req.user 
-        this.authService.signout(user['id']);
+       return this.authService.signout(user['sub']);
     }
 
     @UseGuards(AuthGuard('jwt-refresh'))
     @Post('/refresh')
     @HttpCode(HttpStatus.OK)
-    refreshTokens(): void {
-        this.authService.refreshTokens();
+    refreshTokens(@Req() req: Request) {
+        const user = req.user 
+       return this.authService.refreshTokens(user['sub'], user['refreshToken']);
     }
 }
