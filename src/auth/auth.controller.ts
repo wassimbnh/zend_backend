@@ -4,6 +4,7 @@ import { AuthDto } from './dto';
 import { Token } from './types';
 import { Request } from 'express'; // Import the Request type from express
 import { AtGuard, RtGuard } from 'src/common/guards';
+import { GetCurrentUser, GetCurrentUserId } from 'src/common/decorators';
 
 @Controller('auth')
 export class AuthController {
@@ -24,16 +25,14 @@ export class AuthController {
     @UseGuards(AtGuard)
     @Post('/signout')
     @HttpCode(HttpStatus.OK)
-    signout(@Req() req: Request) {
-        const user = req.user 
-       return this.authService.signout(user['sub']);
+    signout(@GetCurrentUserId('sub') userId: number) {
+       return this.authService.signout(userId);
     }
 
     @UseGuards(RtGuard)
     @Post('/refresh')
     @HttpCode(HttpStatus.OK)
-    refreshTokens(@Req() req: Request) {
-        const user = req.user 
-       return this.authService.refreshTokens(user['sub'], user['refreshToken']);
+    refreshTokens(@GetCurrentUser('refreshToken') refreshToken: string, @GetCurrentUserId('sub') userId: number) {
+       return this.authService.refreshTokens(userId, refreshToken);
     }
 }
